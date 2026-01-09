@@ -22,7 +22,7 @@ public static class Arrays
             // getting new mulitple by multiplying the number by a new number which is the i variable increased by one
             var result = number * (i + 1);
 
-            // to add multiple to list by using i to decide where the multiple goes
+            // to add multiple to list by using i to decide where the multiple goes within the list
             multiples[i] = result;
         }
 
