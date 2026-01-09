@@ -32,9 +32,11 @@ public static class Search {
     /// </summary>
     /// <param name="data">The array of numbers</param>
     /// <param name="target">The number we're looking for</param>
-    private static int SearchSorted1(int[] data, int target) {
+    private static int SearchSorted1(int[] data, int target)
+    {
         var count = 0;
-        foreach (var item in data) {
+        foreach (var item in data)
+        {
             count += 1;
             if (item == target)
                 return count; // Found it
@@ -42,6 +44,8 @@ public static class Search {
 
         return count; // Didn't find it
     }
+
+    // O(n)
 
     /// <summary>
     /// Search for 'target' in the list 'data'. When its found (or not found) the variable count which represents
@@ -51,7 +55,8 @@ public static class Search {
     /// <param name="target">The number we're looking for</param>
     /// <param name="start">The index of the starting section of the data to look in</param>
     /// <param name="end">The index of the ending section of the data to look in</param>
-    private static int SearchSorted2(int[] data, int target, int start, int end) {
+    private static int SearchSorted2(int[] data, int target, int start, int end)
+    {
         if (end < start)
             return 1; // All done
         var middle = (end + start) / 2;
@@ -62,4 +67,6 @@ public static class Search {
         // Search in the lower half before index middle
         return 1 + SearchSorted2(data, target, start, middle - 1);
     }
+    
+    // O(Log n)
 }
