@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 public static class Arrays
 {
     /// <summary>
@@ -8,12 +10,23 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
 
-        return []; // replace this return statement with your own
+        // creating new fixed array to store multiples. The array size is determined by the int length variable
+        var multiples = new double[length];
+
+        /* A loop to multiply the number against i which is a int declared at the beginning. If i is not the 
+        correct length i is increased by one and the loop runs again */
+        for (int i = 0;  i < length; i++)
+        {
+
+            // getting new mulitple by multiplying the number by a new number which is the i variable increased by one
+            var result = number * (i + 1);
+
+            // to add multiple to list by using i to decide where the multiple goes
+            multiples[i] = result;
+        }
+
+        return multiples; // replace this return statement with your own
     }
 
     /// <summary>
@@ -25,9 +38,13 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        /*  variable to get the numbers need to br moved by using GetRange to establish what numbers need to be pulled from where. 
+        I used count to determine the length of the array then subtracted the amount from it to find where the index was and then used
+        the amount to grab the numbers requested*/
+        var numbers = data.GetRange(data.Count - amount, amount);
+        // inserting the numbers the variable retrieved into the beginning by using InsertRange to shove them in the beggining
+        data.InsertRange(0, numbers);
+        // Used RemovedRange as the numbers the variable retrieved were still at the requested location
+        data.RemoveRange(data.Count - amount, amount);
     }
 }
