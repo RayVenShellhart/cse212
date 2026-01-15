@@ -1,4 +1,7 @@
-﻿/// <summary>
+﻿using System.ComponentModel;
+using System.ComponentModel.Design;
+
+/// <summary>
 /// Maintain a Customer Service Queue.  Allows new customers to be 
 /// added and allows customers to be serviced.
 /// </summary>
@@ -12,17 +15,21 @@ public class CustomerService {
 
         // Test 1
         // Scenario: 
-        // Expected Result: 
-        Console.WriteLine("Test 1");
+        // Expected Result:
+        var cs = new CustomerService(0);
+        Console.WriteLine(cs);
+        cs.AddNewCustomer();
+        Console.WriteLine(cs);
+        Console.WriteLine("=================");
 
         // Defect(s) Found: 
-
-        Console.WriteLine("=================");
+        // add new customer dondition was not set right. must be >= not >
 
         // Test 2
         // Scenario: 
         // Expected Result: 
-        Console.WriteLine("Test 2");
+        cs.ServeCustomer();
+        Console.WriteLine(cs);
 
         // Defect(s) Found: 
 
@@ -67,7 +74,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -87,10 +94,20 @@ public class CustomerService {
     /// <summary>
     /// Dequeue the next customer and display the information.
     /// </summary>
-    private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+    private void ServeCustomer()
+    {
+        
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("List is empty");
+            
+        }
+        else
+        {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
