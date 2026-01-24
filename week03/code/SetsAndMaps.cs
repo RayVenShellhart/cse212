@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 public static class SetsAndMaps
 {
@@ -21,8 +22,26 @@ public static class SetsAndMaps
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     public static string[] FindPairs(string[] words)
     {
-        // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var values = new HashSet<string>();
+        var results = new List<string>();
+        
+        foreach (string word in words)
+        {
+            string reverse = new string(word.Reverse().ToArray());
+
+            if (values.Contains(reverse))
+            {
+                results.Add($"{word} & {reverse}");
+
+            }
+            else
+            {
+                values.Add(word);
+            }
+
+
+        }
+        return results.ToArray();
     }
 
     /// <summary>
@@ -42,7 +61,21 @@ public static class SetsAndMaps
         foreach (var line in File.ReadLines(filename))
         {
             var fields = line.Split(",");
-            // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            var id = fields[0];
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree] ++;
+            }
+            else
+            {
+                degrees[degree] = 1;
+            }
+        }
+        
+        foreach (KeyValuePair<string, int> kvp in degrees)
+        {
+            Console.WriteLine("Key:{0}, Value: {1}", kvp.Key, kvp.Value);
         }
 
         return degrees;
@@ -66,8 +99,39 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        var comparedict = new Dictionary<int, string>();
+        var anagrams = new Dictionary<int, string>()
+        {
+            {0, word1},
+            {1, word2}
+        };
+
+        foreach (KeyValuePair<int, string> item in anagrams)
+        {
+            string formatted = item.Value.ToLower().Replace(" ", string.Empty);
+            char[] sorting = formatted.ToCharArray();
+            Array.Sort(sorting);
+            string sorted = new string(sorting);
+            comparedict.Add(item.Key, sorted);
+        }
+
+        if (comparedict[0].Length != comparedict[1].Length)
+        {
+            return false;
+        }
+        else if (comparedict[0] != comparedict[1])
+        {
+            return false;
+        }
+
+        else if (comparedict[0] == comparedict[1])
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -100,7 +164,13 @@ public static class SetsAndMaps
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
+        List<string> items = new List<string>();
+        foreach (var item in featureCollection.features)
+        {
+            string format = $"{item.properties.Place} - Mag {item.properties.Mag}";
+            items.Add(format);
+        }
         // 3. Return an array of these string descriptions.
-        return [];
+        return items.ToArray();
     }
 }

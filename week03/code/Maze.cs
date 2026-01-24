@@ -20,9 +20,29 @@ public class Maze
     private int _currX = 1;
     private int _currY = 1;
 
+
+
+    private HashSet<(int, int)> mazeWalls = new HashSet<(int x, int y)>
+        {
+            (1, 3),
+            (2, 5),
+            (2, 6),
+            (3, 1),
+            (3, 2),
+            (3, 3),
+            (4, 2),
+            (4, 5),
+            (4, 6),
+            (6, 2),
+            (6, 4),
+            (6, 5)
+        };
+
     public Maze(Dictionary<ValueTuple<int, int>, bool[]> mazeMap)
     {
         _mazeMap = mazeMap;
+
+        
     }
 
     // TODO Problem 4 - ADD YOUR CODE HERE
@@ -32,7 +52,18 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        
+
+        if (_currX <= 1 || mazeWalls.Contains((_currX - 1, _currY)))
+        {
+            Console.WriteLine($"Left fail; X{_currX} Y{_currY}");
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX--;
+            Console.WriteLine($"Left good; X{_currX} Y{_currY}");
+        }
     }
 
     /// <summary>
@@ -41,7 +72,16 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        if (_currX >= 6 || mazeWalls.Contains((_currX + 1, _currY)))
+        {
+            Console.WriteLine($"right fail; X{_currX} Y{_currY}");
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currX++;
+            Console.WriteLine($"right good; X{_currX} Y{_currY}");
+        }
     }
 
     /// <summary>
@@ -50,7 +90,17 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        
+        if (_currY <= 1 || mazeWalls.Contains((_currX, _currY - 1)))
+        {
+            Console.WriteLine($"Up fail; X{_currX} Y{_currY}");
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY--;
+            Console.WriteLine($"Up Good; X{_currX} Y{_currY}");
+        }
     }
 
     /// <summary>
@@ -59,7 +109,17 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        
+        if (_currY >= 6 || mazeWalls.Contains((_currX, _currY + 1)))
+        {
+            Console.WriteLine($"down fail; X{_currX} Y{_currY}");
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        else
+        {
+            _currY++;
+            Console.WriteLine($"down good; X{_currX} Y{_currY}");
+        }
     }
 
     public string GetStatus()
